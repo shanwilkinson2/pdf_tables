@@ -37,15 +37,16 @@ library(dplyr)
 
   # remove first row which is just a title
     hmo_reduced <- hmo_reduced[-1,]
-  # get names from first row -- this is pulling out numbers ?factor level number?
+  # get names from first row
     names(hmo_reduced) <- as.character(hmo_reduced[1,])
   # remove first row which is the column names
     hmo_reduced <- hmo_reduced[-1,] %>%
       # clean up col names
       clean_names() %>%
+      # make licence number col numeric
       mutate(licence_number = as.numeric(licence_number))
     
-   # count unique values
+   # count unique values of license number to find number of licensed HMOs
     # NA is a unique value so minus 1 from the total
     length(unique(hmo_reduced$licence_number))-1
   
